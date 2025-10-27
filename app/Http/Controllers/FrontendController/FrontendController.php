@@ -521,16 +521,17 @@ class FrontendController extends Controller
         ];
     }
 
-    public function Match_Calculator()
+    public function Match_Calculator($search_type="")
     {
 		$FooterUser = $this->footerUser();
 		$Footerstory = $this->footerStory();
 		
         $percentage = 0;
-        $dynamicMeta = dynamic_metas::where('page_name', 'match-calculator')->first();
+        $dynamicMeta = dynamic_metas::where('page_name', 'match-calculator-'.$search_type)->first();
         return view('frontend.match-calculator', [
             'dynamicMeta' => $dynamicMeta, 'FooterUser' => $FooterUser,
-            'Footerstory' => $Footerstory, 'percentage' => $percentage
+            'Footerstory' => $Footerstory, 'percentage' => $percentage,
+            'search_type' => $search_type
         ]);
     }
 

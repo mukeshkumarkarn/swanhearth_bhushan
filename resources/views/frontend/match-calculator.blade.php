@@ -11,11 +11,19 @@
     <div class="doctor-love doctor-love-2 w-100 float-start">
         <div class="container">
             <div class="heading center-heading">
+                @if(!empty($search_type) && $search_type=="name-dob")
                 <h2>Calculate your <strong>Love</strong> percentage by Name and DOB</h2>
                 <div class="heart-line">
                     <i class="fas fa-heart"></i>
                 </div>
 				<p>Calculate your love percentage by name and date of birth. Enter your name, dob and your crush name and dob. You will get compatibility percentage for love and relationship</p>
+                @else
+                <h2>Calculate your <strong>Love</strong> percentage by Name</h2>
+                <div class="heart-line">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <p>Calculate your love percentage by name. Enter your name and your crush name. You will get compatibility percentage for love and relationship</p>
+                @endif
             </div>
             <div class="love-calculater w-100 float-start">
                 <div class="row">
@@ -29,13 +37,14 @@
                                         <small>(As per your aadhar number including middle name)</small>
                                         <h6 class="error txtNumerologyNameError"></h6>
                                     </div>
+                                    @if(!empty($search_type) && $search_type=="name-dob")
                                     <div class="enter-name2">
                                         <label for="nameinput2">Your Date of Birth</label>
                                         <input type="text" name="txtNumerologyDOB" id="datepicker" class="txtNumerologyDOB" autocomplete="off" placeholder="Your Date of Birth" />
                                         <small>(Original DOB)</small>
                                         <h6 class="txtNumerologyDOBError error"></h6>
                                     </div>
-
+                                    @endif
                                     <input type="text" class="userId" id="" name="usrId" value="{{ auth()->user()->id ?? '' }}" hidden>
 
                                     <div class="enter-name1">
@@ -44,13 +53,14 @@
                                         <small>(As per your aadhar number including middle name)</small>
                                         <h6 class="txtNumerologyCrushNameError error"></h6>
                                     </div>
+                                    @if(!empty($search_type) && $search_type=="name-dob")
                                     <div class="enter-name2">
                                         <label for="dateinput3">Crush Date of Birth</label>
                                         <input type="text" id="datepicker2" name="txtNumerologyCrushDOB" class="txtNumerologyCrushDOB" autocomplete="off" value="{{ isset($txtNumerologyCrushDOB) ? $txtNumerologyCrushDOB : '' }}" placeholder="Crush Date of Birth" />
                                         <small>(Original DOB)</small>
                                         <h6 class="error txtNumerologyCrushDOBError"></h6>
                                     </div>
-
+                                    @endif
 
                                     <div class="enter-name2 d-flex" style="height:30px;">
                                         <label>Countries: </label>

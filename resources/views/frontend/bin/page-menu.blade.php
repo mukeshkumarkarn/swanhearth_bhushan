@@ -4,7 +4,15 @@
     <ul class="float-end" id="cssmenu">
         <li class="d-block d-lg-none"> <a href="javascript:;" class="b-none logo-re"> <img src="{{asset('assets/images//inner-logo.png')}}" alt="logo"> </a> </li>
         <li><a href="{{('/')}}">Home</a></li>
-		<li><a href="{{url('love-calculator')}}">Love Calculator </a></li>
+		<li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            Love Calculator
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{{url('love-calculator')}}/name">By Name</a></li>
+            <li><a class="dropdown-item" href="{{url('love-calculator')}}/name-dob">By Name and Date of Birth</a></li>
+          </ul>
+        </li>
         <li><a href="{{url('dating-advice')}}">Dating Advice </a></li>
         <li><a href="{{url('dating-stories')}}">Dating Stories </a></li>
         <!--<li><a href="{{url('matchmaking')}}">Matchmaking </a></li>-->
@@ -31,7 +39,15 @@
         <li><a href="{{('/')}}">Home</a></li>
 		<li><a href="{{url('matches')}}">Matches</a></li>
 		<li><a href="{{url('dashboard')}}" class="note">Dashboard<div class="note-count2 totalNotification"></div></a></li>
-		<li><a href="{{url('love-calculator')}}">Love Calculator</a></li>
+		<li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            Love Calculator
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{{url('love-calculator')}}">By Name</a></li>
+            <li><a class="dropdown-item" href="{{url('love-calculator')}}/1">By Name and Date of Birth</a></li>
+          </ul>
+        </li>
         <li><a href="{{url('dating-advice')}}">Dating Advice </a></li>
         <li><a href="{{url('dating-stories')}}">Dating Stories </a></li>
         <!--<li><a href="{{url('matchmaking')}}">Matchmaking </a></li>-->
