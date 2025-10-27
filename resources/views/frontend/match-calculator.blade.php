@@ -8,22 +8,15 @@
     </div>
 </div>
 <section class="main-innerpage">
+    @if(!empty($search_type) && $search_type=="name-dob"))
     <div class="doctor-love doctor-love-2 w-100 float-start">
         <div class="container">
             <div class="heading center-heading">
-                @if(!empty($search_type) && $search_type=="name-dob")
                 <h2>Calculate your <strong>Love</strong> percentage by Name and DOB</h2>
                 <div class="heart-line">
                     <i class="fas fa-heart"></i>
                 </div>
-				<p>Calculate your love percentage by name and date of birth. Enter your name, dob and your crush name and dob. You will get compatibility percentage for love and relationship</p>
-                @else
-                <h2>Calculate your <strong>Love</strong> percentage by Name</h2>
-                <div class="heart-line">
-                    <i class="fas fa-heart"></i>
-                </div>
-                <p>Calculate your love percentage by name. Enter your name and your crush name. You will get compatibility percentage for love and relationship</p>
-                @endif
+                <p>Calculate your love percentage by name and date of birth. Enter your name, dob and your crush name and dob. You will get compatibility percentage for love and relationship</p>
             </div>
             <div class="love-calculater w-100 float-start">
                 <div class="row">
@@ -37,14 +30,13 @@
                                         <small>(As per your aadhar number including middle name)</small>
                                         <h6 class="error txtNumerologyNameError"></h6>
                                     </div>
-                                    @if(!empty($search_type) && $search_type=="name-dob")
                                     <div class="enter-name2">
                                         <label for="nameinput2">Your Date of Birth</label>
                                         <input type="text" name="txtNumerologyDOB" id="datepicker" class="txtNumerologyDOB" autocomplete="off" placeholder="Your Date of Birth" />
                                         <small>(Original DOB)</small>
                                         <h6 class="txtNumerologyDOBError error"></h6>
                                     </div>
-                                    @endif
+
                                     <input type="text" class="userId" id="" name="usrId" value="{{ auth()->user()->id ?? '' }}" hidden>
 
                                     <div class="enter-name1">
@@ -53,14 +45,13 @@
                                         <small>(As per your aadhar number including middle name)</small>
                                         <h6 class="txtNumerologyCrushNameError error"></h6>
                                     </div>
-                                    @if(!empty($search_type) && $search_type=="name-dob")
                                     <div class="enter-name2">
                                         <label for="dateinput3">Crush Date of Birth</label>
                                         <input type="text" id="datepicker2" name="txtNumerologyCrushDOB" class="txtNumerologyCrushDOB" autocomplete="off" value="{{ isset($txtNumerologyCrushDOB) ? $txtNumerologyCrushDOB : '' }}" placeholder="Crush Date of Birth" />
                                         <small>(Original DOB)</small>
                                         <h6 class="error txtNumerologyCrushDOBError"></h6>
                                     </div>
-                                    @endif
+
 
                                     <div class="enter-name2 d-flex" style="height:30px;">
                                         <label>Countries: </label>
@@ -98,12 +89,13 @@
             </div>
         </div>
     </div>
+    @elseif(!empty($search_type) && $search_type=="name")
     <div class="doctor-love doctor-love-next w-100 float-start">
         <div class="container">
             <div class="heading center-heading">
-				<h2> Calculate your <strong>Love</strong> percentage by Name</h2>
+                <h2> Calculate your <strong>Love</strong> percentage by Name</h2>
                 <div class="heart-line"> <i class="fa fa-heart"></i> </div>
-				<p>Calculate your love percentage by name. Enter your name and your crush name. It is lesser accurate than calculator with name and DOB. You will get compatibility percentage for love and relationship</p>
+                <p>Calculate your love percentage by name. Enter your name and your crush name. It is lesser accurate than calculator with name and DOB. You will get compatibility percentage for love and relationship</p>
             </div>
             <form>
                 <div class="love-calculater w-100 float-start">
@@ -143,6 +135,7 @@
         </div>
         <div class="cloud-shape"></div>
     </div>
+    @endif
 </section>
 <div class="clearfix"></div>
 @include('frontend.bin.footer')
@@ -225,7 +218,7 @@
             dateFormat: 'yy-mm-dd',
             changeMonth: true,
             changeYear: true,
-			yearRange: "1947:"+new Date().getFullYear()
+            yearRange: "1947:"+new Date().getFullYear()
         });
     });
     $(function() {
@@ -233,7 +226,7 @@
             dateFormat: 'yy-mm-dd',
             changeMonth: true,
             changeYear: true,
-			yearRange: "1947:"+new Date().getFullYear()
+            yearRange: "1947:"+new Date().getFullYear()
         });
     });
 </script>

@@ -523,6 +523,9 @@ class FrontendController extends Controller
 
     public function Match_Calculator($search_type="")
     {
+        if($search_type==""){
+            return redirect("love-calculator/name");
+        }
 		$FooterUser = $this->footerUser();
 		$Footerstory = $this->footerStory();
 		
