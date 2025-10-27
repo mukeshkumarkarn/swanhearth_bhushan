@@ -1,0 +1,28 @@
+[24-Mar-2024 16:05:41 UTC] PHP Warning:  require_once(/home/milandee/swanhearth.com/vendor/composer/autoload_real.php): Failed to open stream: No such file or directory in /home/milandee/swanhearth.com/vendor/autoload.php on line 23
+[24-Mar-2024 16:05:41 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/milandee/swanhearth.com/vendor/composer/autoload_real.php' (include_path='.:/opt/alt/php81/usr/share/pear:/opt/alt/php81/usr/share/php:/usr/share/pear:/usr/share/php') in /home/milandee/swanhearth.com/vendor/autoload.php:23
+Stack trace:
+#0 /home/milandee/swanhearth.com/public/index.php(34): require()
+#1 {main}
+  thrown in /home/milandee/swanhearth.com/vendor/autoload.php on line 23
+[24-Mar-2024 16:11:04 UTC] PHP Warning:  require_once(/home/milandee/swanhearth.com/vendor/composer/autoload_real.php): Failed to open stream: No such file or directory in /home/milandee/swanhearth.com/vendor/autoload.php on line 23
+[24-Mar-2024 16:11:04 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/milandee/swanhearth.com/vendor/composer/autoload_real.php' (include_path='.:/opt/alt/php81/usr/share/pear:/opt/alt/php81/usr/share/php:/usr/share/pear:/usr/share/php') in /home/milandee/swanhearth.com/vendor/autoload.php:23
+Stack trace:
+#0 /home/milandee/swanhearth.com/public/index.php(34): require()
+#1 {main}
+  thrown in /home/milandee/swanhearth.com/vendor/autoload.php on line 23
+[24-Mar-2024 17:23:07 UTC] PHP Warning:  require_once(/home/milandee/swanhearth.com/vendor/composer/autoload_real.php): Failed to open stream: No such file or directory in /home/milandee/swanhearth.com/vendor/autoload.php on line 23
+[24-Mar-2024 17:23:07 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/milandee/swanhearth.com/vendor/composer/autoload_real.php' (include_path='.:/opt/alt/php81/usr/share/pear:/opt/alt/php81/usr/share/php:/usr/share/pear:/usr/share/php') in /home/milandee/swanhearth.com/vendor/autoload.php:23
+Stack trace:
+#0 /home/milandee/swanhearth.com/public/index.php(34): require()
+#1 {main}
+  thrown in /home/milandee/swanhearth.com/vendor/autoload.php on line 23
+[11-Apr-2024 16:31:38 UTC] PHP Fatal error:  Cannot use Illuminate\Support\Facades\Session as Session because the name is already in use in /home/milandee/swanhearth.com/app/Http/Controllers/UserRegister/UserRegister.php on line 19
+[11-Apr-2024 16:31:41 UTC] PHP Fatal error:  Cannot use Illuminate\Support\Facades\Session as Session because the name is already in use in /home/milandee/swanhearth.com/app/Http/Controllers/UserRegister/UserRegister.php on line 19
+[11-Apr-2024 16:32:02 UTC] PHP Fatal error:  Cannot use Illuminate\Support\Facades\Session as Session because the name is already in use in /home/milandee/swanhearth.com/app/Http/Controllers/UserRegister/UserRegister.php on line 19
+[11-Apr-2024 16:32:07 UTC] PHP Fatal error:  Cannot use Illuminate\Support\Facades\Session as Session because the name is already in use in /home/milandee/swanhearth.com/app/Http/Controllers/UserRegister/UserRegister.php on line 19
+[15-Dec-2024 06:40:40 UTC] PHP Fatal error:  Allowed memory size of 536870912 bytes exhausted (tried to allocate 400560128 bytes) in /home/milandee/swanhearth.com/app/Http/Controllers/FrontendController/FrontendController.php on line 1270
+[04-Jan-2025 16:41:11 UTC] PHP Fatal error:  Constant expression contains invalid operations in /home/milandee/swanhearth.com/app/Http/Controllers/FrontendController/FrontendController.php on line 636
+[28-Jan-2025 17:43:53 UTC] PHP Fatal error:  Allowed memory size of 536870912 bytes exhausted (tried to allocate 400560128 bytes) in /home/milandee/swanhearth.com/app/Http/Controllers/FrontendController/FrontendController.php on line 206
+[28-Jan-2025 17:44:35 UTC] PHP Fatal error:  Allowed memory size of 536870912 bytes exhausted (tried to allocate 400560128 bytes) in /home/milandee/swanhearth.com/app/Http/Controllers/FrontendController/FrontendController.php on line 206
+[28-Jan-2025 18:14:07 UTC] PHP Fatal error:  Allowed memory size of 536870912 bytes exhausted (tried to allocate 400560128 bytes) in /home/milandee/swanhearth.com/app/Http/Controllers/FrontendController/FrontendController.php on line 206
+[29-Jan-2025 18:22:16 UTC] PHP Fatal error:  Allowed memory size of 536870912 bytes exhausted (tried to allocate 266342400 bytes) in /home/milandee/swanhearth.com/app/Http/Controllers/FrontendController/FrontendController.php on line 205

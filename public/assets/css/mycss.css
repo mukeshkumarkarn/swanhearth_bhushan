@@ -1,0 +1,80 @@
+.sucess {
+    color: white;
+    background-color: green;
+}
+
+.error {
+    color: #b74e6d;
+    text-align: left;
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+.NoData {
+    border: 1px solid;
+    border-style: outset;
+    height: 70px;
+    text-align: center;
+    padding: 15px;
+    box-shadow: 1px 8px 12px #888888;
+    border-radius: 8px;
+    font-size: 24px;
+    font-family: "Lato", sans-serif;
+    line-height: 1.1;
+    font-weight: 400;
+    color: #111111;
+}
+
+.chatImg {
+    border-radius: 30px;
+    max-width: 85%;
+}
+
+.barchart {
+    height: 5px;
+    width: 50%;
+    border: 1px solid;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+}
+.bar {
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.flex-container {
+    display: flex;
+    align-items: center; 
+}
+
+.percentage {
+    margin-right: 10px; 
+}
+
+.razorpay-payment-button{
+    display: inline-block;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    width: 200px;
+    position: relative;
+    background-image: linear-gradient(to right, #ba2c73, #b74e6d, #ba2c73, #b74e6d);
+    background-size: 300%;
+    border-radius: 35px;
+    color: #ffffff;
+    border: none;
+
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.search-user{
+    width: 60%;
+    height: 39px;
+    border-radius: 6px;
+    border: 1px solid darkgrey;
+}
