@@ -813,26 +813,28 @@ $(document).ready(function () {
 // block
 $(document).ready(function () {
     $(document).on('click', '.block', function () {
-        var user_id = $('.user_id').val();
-        var user_other_person_id = $(this).data('reference');
-        var bookmarkButton = $(this);
-        var url = '/api/block/' + user_other_person_id + '/' + user_id;
-        var csrf = $("[name=_token]").val();
-        var base_url = window.location.origin;
-        url = base_url + url;
-        $.ajax({
-            type: 'get',
-            url: url,
-            success: function (data) {
-                $('.messageShow').text(data.message).show();
-                $('.requestBlock').addClass('unblock');
-                $('.requestBlock').removeClass('block');
-                bookmarkButton.find('img').css('filter', 'hue-rotate(120deg)');
-                setTimeout(function () {
-                    $('.messageShow').hide(data.message);
-                }, 3000);
-            }
-        });
+        if(confirm("Are you sure you want to block this?")){
+            var user_id = $('.user_id').val();
+            var user_other_person_id = $(this).data('reference');
+            var bookmarkButton = $(this);
+            var url = '/api/block/' + user_other_person_id + '/' + user_id;
+            var csrf = $("[name=_token]").val();
+            var base_url = window.location.origin;
+            url = base_url + url;
+            $.ajax({
+                type: 'get',
+                url: url,
+                success: function (data) {
+                    $('.messageShow').text(data.message).show();
+                    $('.requestBlock').addClass('unblock');
+                    $('.requestBlock').removeClass('block');
+                    bookmarkButton.find('img').css('filter', 'hue-rotate(120deg)');
+                    setTimeout(function () {
+                        $('.messageShow').hide(data.message);
+                    }, 3000);
+                }
+            });
+        }
     });
 });
 // end block
@@ -841,26 +843,28 @@ $(document).ready(function () {
 // unblock
 $(document).ready(function () {
     $(document).on('click', '.unblock', function () {
-        var user_id = $('.user_id').val();
-        var bookmarkButton = $(this);
-        var user_other_person_id = $(this).data('reference');
-        var url = '/api/unblock/' + user_other_person_id + '/' + user_id;
-        var csrf = $("[name=_token]").val();
-        var base_url = window.location.origin;
-        url = base_url + url;
-        $.ajax({
-            type: 'get',
-            url: url,
-            success: function (data) {
-                $('.messageShow').text(data.message).show();
-                $('.requestBlock').addClass('block');
-                $('.requestBlock').removeClass('unblock');
-                bookmarkButton.find('img').css('filter', 'hue-rotate(320deg)');
-                setTimeout(function () {
-                    $('.messageShow').hide(data.message);
-                }, 3000);
-            }
-        });
+        if(confirm("Are you sure you want to Unblock this?")){
+            var user_id = $('.user_id').val();
+            var bookmarkButton = $(this);
+            var user_other_person_id = $(this).data('reference');
+            var url = '/api/unblock/' + user_other_person_id + '/' + user_id;
+            var csrf = $("[name=_token]").val();
+            var base_url = window.location.origin;
+            url = base_url + url;
+            $.ajax({
+                type: 'get',
+                url: url,
+                success: function (data) {
+                    $('.messageShow').text(data.message).show();
+                    $('.requestBlock').addClass('block');
+                    $('.requestBlock').removeClass('unblock');
+                    bookmarkButton.find('img').css('filter', 'hue-rotate(320deg)');
+                    setTimeout(function () {
+                        $('.messageShow').hide(data.message);
+                    }, 3000);
+                }
+            });
+        }
     });
 });
 // end unblock

@@ -66,6 +66,8 @@ Route::get('dating-stories/edit/{slug}', [FrontendController::class, 'Userdetail
 
 Route::get('love-calculator', [FrontendController::class, 'Match_Calculator'])->name('love-calculator');
 Route::get('love-calculator/{search_type}', [FrontendController::class, 'Match_Calculator'])->name('love-calculator-search_type');
+Route::get('love-calculator-name', [FrontendController::class, 'Match_Calculator_name'])->name('love-calculator-name');
+Route::get('love-calculator-name-dob', [FrontendController::class, 'Match_Calculator_name_dob'])->name('love-calculator-name-dob');
 
 Route::get('membership', [FrontendController::class, 'membership'])->name('membership');
 

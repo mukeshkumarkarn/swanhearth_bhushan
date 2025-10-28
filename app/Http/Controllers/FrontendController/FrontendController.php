@@ -264,6 +264,9 @@ class FrontendController extends Controller
 		$userRef=array();
 		$arrPage=array();
 		if(($page=="" || $page=="1") && ($page==$totalUsers)) {
+            if (empty($userData[0])) {
+                return redirect('/matches');
+            }
 			$userRef['prev']="";
 			$userRef['curr']=$userData[0]->user_ref;
 			$userRef['next']="";
@@ -272,6 +275,12 @@ class FrontendController extends Controller
             $distance = $userData[0]->distance;
 		}
 		else if($page=="" || $page=="1") {
+            if (empty($userData[0])) {
+                return redirect('/matches');
+            }
+            elseif (empty($userData[1])) {
+                return redirect('/matches');
+            }
 			$userRef['prev']="";
 			$userRef['curr']=$userData[0]->user_ref;
 			$userRef['next']=$userData[1]->user_ref;
@@ -280,6 +289,12 @@ class FrontendController extends Controller
             $distance = $userData[0]->distance;
 		}
 		else if($page==$totalUsers) {
+            if (empty($userData[0])) {
+                return redirect('/matches');
+            }
+            elseif (empty($userData[1])) {
+                return redirect('/matches');
+            }
 			$userRef['prev']=$userData[0]->user_ref;
 			$userRef['curr']=$userData[1]->user_ref;
 			$userRef['next']="";
@@ -288,6 +303,15 @@ class FrontendController extends Controller
             $distance = $userData[1]->distance;
 		}
 		else {
+            if (empty($userData[0])) {
+                return redirect('/matches');
+            }
+            elseif (empty($userData[1])) {
+                return redirect('/matches');
+            }
+            elseif (empty($userData[2])) {
+                return redirect('/matches');
+            }
 			$userRef['prev']=$userData[0]->user_ref;
 			$userRef['curr']=$userData[1]->user_ref;
 			$userRef['next']=$userData[2]->user_ref;
@@ -535,10 +559,50 @@ class FrontendController extends Controller
 		
         $percentage = 0;
         $dynamicMeta = dynamic_metas::where('page_name', 'match-calculator-'.$search_type)->first();
-        return view('frontend.match-calculator', [
+        /*return view('frontend.match-calculator', [
             'dynamicMeta' => $dynamicMeta, 'FooterUser' => $FooterUser,
             'Footerstory' => $Footerstory, 'percentage' => $percentage,
             'search_type' => $search_type
+        ]);*/
+        if($search_type == "name"){
+            return view('frontend.match-calculator-name', [
+            'dynamicMeta' => $dynamicMeta, 'FooterUser' => $FooterUser,
+            'Footerstory' => $Footerstory, 'percentage' => $percentage
+           ]);
+        }
+        if($search_type == "name-dob"){
+            return view('frontend.match-calculator-name-dob', [
+            'dynamicMeta' => $dynamicMeta, 'FooterUser' => $FooterUser,
+            'Footerstory' => $Footerstory, 'percentage' => $percentage
+        ]);
+        }
+    }
+
+    public function Match_Calculator_name()
+    {
+        
+		$FooterUser = $this->footerUser();
+		$Footerstory = $this->footerStory();
+		
+        $percentage = 0;
+        $dynamicMeta = dynamic_metas::where('page_name', 'match-calculator-name')->first();
+        return view('frontend.match-calculator-name', [
+            'dynamicMeta' => $dynamicMeta, 'FooterUser' => $FooterUser,
+            'Footerstory' => $Footerstory, 'percentage' => $percentage
+        ]);
+    }
+
+    public function Match_Calculator_name_dob()
+    {
+        
+		$FooterUser = $this->footerUser();
+		$Footerstory = $this->footerStory();
+		
+        $percentage = 0;
+        $dynamicMeta = dynamic_metas::where('page_name', 'match-calculator-name-dob')->first();
+        return view('frontend.match-calculator-name-dob', [
+            'dynamicMeta' => $dynamicMeta, 'FooterUser' => $FooterUser,
+            'Footerstory' => $Footerstory, 'percentage' => $percentage
         ]);
     }
 

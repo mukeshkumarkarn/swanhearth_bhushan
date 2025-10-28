@@ -44,8 +44,8 @@
             Love Calculator
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="{{url('love-calculator')}}">By Name</a></li>
-            <li><a class="dropdown-item" href="{{url('love-calculator')}}/1">By Name and Date of Birth</a></li>
+            <li><a class="dropdown-item" href="{{url('love-calculator')}}/name">By Name</a></li>
+            <li><a class="dropdown-item" href="{{url('love-calculator')}}/name-dob">By Name and Date of Birth</a></li>
           </ul>
         </li>
         <li><a href="{{url('dating-advice')}}">Dating Advice </a></li>
