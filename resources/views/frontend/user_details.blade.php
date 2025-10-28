@@ -33,13 +33,17 @@
                     <div class="col-lg-7 col-md-12 col-12">
                         <div class="b_product_sell_details_wrapper mt-4 mt-lg-0 float_left">
                             <div class="bz_product_heading float_left">
-                                <h3>{{$userData->name}} , <?php
-                                                        $dob = new DateTime($userData->dob);
-                                                        $currentDate = new DateTime();
-                                                        $age = $dob->diff($currentDate)->y;
-                                                        echo $age;
-                                                        ?></h3>
-                                <span class="font-color-pink">23 kilometers away</span><br><span>{{$userData->city}}, {{$userData->state}}, {{$userData->country}} </span>
+                                <h3>{{$userData->name}}</h3>
+                                <span class="font-color-pink"><?php
+                                    $dob = new DateTime($userData->dob);
+                                    $currentDate = new DateTime();
+                                    $age = $dob->diff($currentDate)->y;
+                                    echo $age;
+                                    ?> years old
+                                </span><br>
+                                <span>{{$userData->city}}, {{$userData->state}}, {{$userData->country}} </span>
+                                <br>
+                                <span class="font-color-pink">{{ round($distance) }} km away</span>
 								
                                 <h6 class="messageShow" style="color: green;"></h6>
 

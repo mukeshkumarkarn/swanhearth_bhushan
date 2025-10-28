@@ -269,6 +269,7 @@ class FrontendController extends Controller
 			$userRef['next']="";
 			$arrPage['prev']='';
 			$arrPage['next']='';
+            $distance = $userData[0]->distance;
 		}
 		else if($page=="" || $page=="1") {
 			$userRef['prev']="";
@@ -276,6 +277,7 @@ class FrontendController extends Controller
 			$userRef['next']=$userData[1]->user_ref;
 			$arrPage['prev']='';
 			$arrPage['next']='2';
+            $distance = $userData[0]->distance;
 		}
 		else if($page==$totalUsers) {
 			$userRef['prev']=$userData[0]->user_ref;
@@ -283,6 +285,7 @@ class FrontendController extends Controller
 			$userRef['next']="";
 			$arrPage['prev']=(int)$page-1;
 			$arrPage['next']='';
+            $distance = $userData[1]->distance;
 		}
 		else {
 			$userRef['prev']=$userData[0]->user_ref;
@@ -290,6 +293,7 @@ class FrontendController extends Controller
 			$userRef['next']=$userData[2]->user_ref;
 			$arrPage['prev']=(int)$page-1;
 			$arrPage['next']=(int)$page+1;
+            $distance = $userData[1]->distance;
 		}
 		
 		//echo "<pre>";print_r($userRef);
@@ -302,7 +306,7 @@ class FrontendController extends Controller
 		$Footerstory = $this->footerStory();
 
 		$dynamicMeta = dynamic_metas::where('page_name', 'account')->first();
-		$return_array = array_merge($return_data, ['userRef'=>$userRef, 'arrPage'=>$arrPage, 'dynamicMeta' => $dynamicMeta, 'FooterUser' => $FooterUser, 'Footerstory' => $Footerstory]);
+		$return_array = array_merge($return_data, ['userRef'=>$userRef, 'arrPage'=>$arrPage, 'dynamicMeta' => $dynamicMeta, 'FooterUser' => $FooterUser, 'Footerstory' => $Footerstory,'distance'=>$distance]);
 		
 		return view('frontend.matches', $return_array);
 		
