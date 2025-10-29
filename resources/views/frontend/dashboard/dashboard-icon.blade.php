@@ -6,6 +6,7 @@
                                 <div class="heart-line"> <i class="fas fa-heart"></i> </div>
                             </div>
                             <div class="gallery4-wrapper">
+                                
                                 <div class="row">
                                     @if(count($displayData) > 0)
                                     @foreach($displayData as $data)

@@ -23,6 +23,7 @@
                             <li>
                                 <div class="enter-name enter-name1">
                                     <label for="nameInput1"><span>Your Name</span>
+                                        <input type="text" class="userId" id="" name="usrId" value="{{ auth()->user()->id ?? '' }}" hidden>
                                         <input type="text" class="NumerologyName" name="txtNumerologyName" id="nameInput1" value="{{ isset($fullNames) ? $fullNames : '' }}" placeholder="Full Name" />
                                         <h6 class="NumerologyNameError error"></h6>
                                     </label>

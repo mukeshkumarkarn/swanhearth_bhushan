@@ -18,7 +18,29 @@
 				
                 </div>
                 <div class="col-lg-8 col-md-12 col-12">
-				
+                    <form method="post">
+                        @csrf
+                        @php
+                            $mobile_number = isset($user_detail["mobile_no"]) ? $user_detail["mobile_no"] :'';
+                        @endphp
+                        <div class="row align-items-center">
+                            <div class="col-md-3">
+                                <label class="fw-bold">Mobile Number:</label>
+                            </div>
+
+                            <div class="col-md-2">
+                                <span>{{$mobile_number}}</span>
+                            </div>
+
+                            <div class="col-md-3">
+                                <input type="text" name="mobile_no" oninput="this.value = this.value.replace(/\D+/g, '')" maxlength="10" class="form-control" value="{{$mobile_number}}" placeholder="">
+                            </div>
+
+                            <div class="col-md-4">
+                                <button type="submit" class="main-btn" name="update_mobile_no">Update</button>
+                            </div>
+                        </div>
+                    </form>
 				
 				@include('frontend.dashboard.dashboard-icon')
 				

@@ -212,6 +212,7 @@ $(document).ready(function () {
         var csrf = $("[name=_token]").val();
         let txtNumerologyName = $(".NumerologyName").val();
         let txtNumerologyCrushName = $(".crushname").val();
+        let userId = $(".userId").val();
         var base_url = window.location.origin;
         var url = base_url + '/api/match-calculators-name';
         var option = "";
@@ -222,6 +223,7 @@ $(document).ready(function () {
                 data: {
                     "txtNumerologyName": txtNumerologyName,
                     "txtNumerologyCrushName": txtNumerologyCrushName,
+                    "userId" : userId,
                     "_token": csrf
                 },
                 success: function (result) {

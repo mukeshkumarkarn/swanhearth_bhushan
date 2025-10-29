@@ -1215,8 +1215,17 @@ class FrontendController extends Controller
     }
 
 
-    public function request_mobile_recived()
+    public function request_mobile_recived(Request $request)
     {
+        $user_id = Auth::user()->id;
+        $where = array("id"=>$user_id);
+        if(isset($_POST["update_mobile_no"])){
+            $post_data = $request->all();
+            $update_arr = array("mobile_no"=>$post_data["mobile_no"]);
+            
+            User::where($where)->update($update_arr);
+        }
+        $user_detail = User::where($where)->first();
         $requestMobiles = user_action::join('users', 'user_actions.user_id', '=', 'users.id')
             ->where('user_actions.request_mobile', 'request-mobile')
             ->where('user_actions.other_person_user_id', Auth::user()->id)
@@ -1240,7 +1249,7 @@ class FrontendController extends Controller
 		
 		$dashboardMenu = $this->__dashboardMenu();
 		
-		$otherRet=['dynamicMeta' => $dynamicMeta, 'page_heading'=>$page_heading, 'group_name'=>$group_name, 'displayData' => $requestMobiles];
+		$otherRet=['dynamicMeta' => $dynamicMeta, 'page_heading'=>$page_heading, 'group_name'=>$group_name, 'displayData' => $requestMobiles,'user_detail'=>$user_detail];
 		$arrReturnValue = array_merge($dashboardMenu, $otherRet);
 		
 		return view('frontend.dashboard.request-mobile', $arrReturnValue);

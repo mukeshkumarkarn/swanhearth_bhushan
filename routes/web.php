@@ -44,7 +44,7 @@ Route::get('login', [FrontendController::class, 'User_login'])->name('login');
 
 Route::get('sign-up', [FrontendController::class, 'User_register'])->name('user-register');
 
-Route::get('dashboard', [FrontendController::class, 'dashboard'])->name('dashboard');
+//Route::get('dashboard', [FrontendController::class, 'dashboard'])->name('dashboard');
 
 Route::get('forgot-password', [FrontendController::class, 'forgot_password'])->name('forgot-password');
 
@@ -84,6 +84,7 @@ Route::get('contact-us', [FrontendController::class, 'contact_us'])->name('conta
 Route::post('contact-save', [ContactController::class, 'Contact_store']);
 
 Route::group(['middleware' => ['auth']], function () {
+    Route::get('dashboard', [FrontendController::class, 'dashboard'])->name('dashboard');
     Route::get('settings', [FrontendController::class, 'settings'])->name('settings');
     Route::get('matchmaking', [FrontendController::class, 'matchmaking'])->name('matchmaking');
 	
@@ -210,6 +211,7 @@ Route::prefix('settings')->group(function () {
 Route::prefix('dashboard')->group(function () {
     Route::get('friend-message', [FrontendController::class, 'friend_message'])->name('friend-message');
     Route::get('request-mobile-received', [FrontendController::class, 'request_mobile_recived'])->name('request-mobile-received');
+    Route::post('request-mobile-received', [FrontendController::class, 'request_mobile_recived']);
     Route::get('request-email-received', [FrontendController::class, 'request_email_recived'])->name('request-email-received');
     Route::get('request-photo-received', [FrontendController::class, 'request_photo_recived'])->name('request-photo-received');
     Route::get('request-like-received', [FrontendController::class, 'request_like_recived'])->name('request-like-received');
