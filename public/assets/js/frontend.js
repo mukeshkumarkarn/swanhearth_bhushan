@@ -810,9 +810,10 @@ $(document).ready(function () {
 });
 // end cancle request email
 
-// block
+//Match page block
 $(document).ready(function () {
-    $(document).on('click', '.block', function () {
+    $(document).on('click', '.b_product_sell_details_wrapper .block', function () {
+        var thiselement = $(this);
         if(confirm("Are you sure you want to block this?")){
             var user_id = $('.user_id').val();
             var user_other_person_id = $(this).data('reference');
@@ -825,24 +826,25 @@ $(document).ready(function () {
                 type: 'get',
                 url: url,
                 success: function (data) {
-                    $('.messageShow').text(data.message).show();
-                    $('.requestBlock').addClass('unblock');
-                    $('.requestBlock').removeClass('block');
+                    thiselement.closest(".b_product_sell_details_wrapper").find('.messageShow').text(data.message).show();
+                    thiselement.closest(".b_product_sell_details_wrapper").find('.requestBlock').addClass('unblock');
+                    thiselement.closest(".b_product_sell_details_wrapper").find('.requestBlock').removeClass('block');
                     bookmarkButton.find('img').css('filter', 'hue-rotate(120deg)');
                     setTimeout(function () {
-                        $('.messageShow').hide(data.message);
+                        thiselement.closest(".b_product_sell_details_wrapper").find('.messageShow').hide(data.message);
                     }, 3000);
                 }
             });
         }
     });
 });
-// end block
+// end Match page block
 
 
-// unblock
+// Match page unblock
 $(document).ready(function () {
-    $(document).on('click', '.unblock', function () {
+    $(document).on('click', '.b_product_sell_details_wrapper .unblock', function () {
+        var thiselement = $(this);
         if(confirm("Are you sure you want to Unblock this?")){
             var user_id = $('.user_id').val();
             var bookmarkButton = $(this);
@@ -855,21 +857,77 @@ $(document).ready(function () {
                 type: 'get',
                 url: url,
                 success: function (data) {
-                    $('.messageShow').text(data.message).show();
-                    $('.requestBlock').addClass('block');
-                    $('.requestBlock').removeClass('unblock');
+                    thiselement.closest(".b_product_sell_details_wrapper").find('.messageShow').text(data.message).show();
+                    thiselement.closest(".b_product_sell_details_wrapper").find('.requestBlock').addClass('block');
+                    thiselement.closest(".b_product_sell_details_wrapper").find('.requestBlock').removeClass('unblock');
                     bookmarkButton.find('img').css('filter', 'hue-rotate(320deg)');
                     setTimeout(function () {
-                        $('.messageShow').hide(data.message);
+                        thiselement.closest(".b_product_sell_details_wrapper").find('.messageShow').hide(data.message);
                     }, 3000);
                 }
             });
         }
     });
 });
-// end unblock
-
-
+// end Match page unblock
+// Dasboard page block
+$(document).ready(function () {
+    $(document).on('click', '.tab_image_text .block', function () {
+        var thiselement = $(this);
+        if(confirm("Are you sure you want to block this?")){
+            var user_id = $('.user_id').val();
+            var user_other_person_id = $(this).data('reference');
+            var bookmarkButton = $(this);
+            var url = '/api/block/' + user_other_person_id + '/' + user_id;
+            var csrf = $("[name=_token]").val();
+            var base_url = window.location.origin;
+            url = base_url + url;
+            $.ajax({
+                type: 'get',
+                url: url,
+                success: function (data) {
+                    thiselement.closest(".tab_image_text").find('.messageShow').text(data.message).show();
+                    thiselement.closest(".tab_image_text").find('.requestBlock').addClass('unblock');
+                    thiselement.closest(".tab_image_text").find('.requestBlock').removeClass('block');
+                    bookmarkButton.find('img').css('filter', 'hue-rotate(120deg)');
+                    setTimeout(function () {
+                        thiselement.closest(".tab_image_text").find('.messageShow').hide(data.message);
+                    }, 3000);
+                }
+            });
+        }
+    });
+});
+// End Dasboard page block
+// Dasboard page UNblock
+$(document).ready(function () {
+    $(document).on('click', '.tab_image_text .unblock', function () {
+        var thiselement = $(this);
+        if(confirm("Are you sure you want to Unblock this?")){
+            var user_id = $('.user_id').val();
+            var bookmarkButton = $(this);
+            var user_other_person_id = $(this).data('reference');
+            var url = '/api/unblock/' + user_other_person_id + '/' + user_id;
+            var csrf = $("[name=_token]").val();
+            var base_url = window.location.origin;
+            url = base_url + url;
+            $.ajax({
+                type: 'get',
+                url: url,
+                success: function (data) {
+                    thiselement.closest(".tab_image_text").find('.messageShow').text(data.message).show();
+                    thiselement.closest(".tab_image_text").find('.requestBlock').addClass('block');
+                    thiselement.closest(".tab_image_text").find('.requestBlock').removeClass('unblock');
+                    bookmarkButton.find('img').css('filter', 'hue-rotate(320deg)');
+                    setTimeout(function () {
+                        thiselement.closest(".tab_image_text").find('.messageShow').hide(data.message);
+                    }, 3000);
+                }
+            });
+        }
+    });
+});
+//End Dasboard page UNblock
 //accept request mobile
 $(document).ready(function () {
     $(document).on('click', '.accept-request', function () {

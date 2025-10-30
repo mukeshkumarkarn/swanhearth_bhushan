@@ -40,4 +40,4 @@
     </div>
 </section>
 <div class="clearfix"></div>
-@include('frontend.bin.footerFrontend')
+@include('frontend.bin.footer')
