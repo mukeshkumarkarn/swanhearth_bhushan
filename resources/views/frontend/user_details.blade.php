@@ -8,30 +8,33 @@
                         <div class="product__carousel">
                             <div class="swiper-container gallery-top">
                                 <div class="swiper-wrapper">
-
-                                    @foreach ($disp_album as $img_album)
-                                    <div class="swiper-slide">
-                                        <a href="{{ url('assets/images/'. $img_album) }}" data-fancybox="gallery-image">
-                                            <img src="{{ url('assets/images/'. $img_album) }}" alt="single-product1" class="img-fluid" />
-                                        </a>
-                                    </div>
-                                    @endforeach
-
+                                    @if(isset($disp_album))
+                                        @foreach ($disp_album as $img_album)
+                                        <div class="swiper-slide">
+                                            <a href="{{ url('assets/images/'. $img_album) }}" data-fancybox="gallery-image">
+                                                <img src="{{ url('assets/images/'. $img_album) }}" alt="single-product1" class="img-fluid" />
+                                            </a>
+                                        </div>
+                                        @endforeach
+                                    @endif
                                 </div>
                                 <div class="swiper-button-next swiper-button-white"></div>
                                 <div class="swiper-button-prev swiper-button-white"></div>
                             </div>
                             <div class="swiper-container gallery-thumbs">
                                 <div class="swiper-wrapper">
-                                    @foreach ($disp_album as $img_album)
-                                    <div class="swiper-slide"> <img src="{{ url('assets/images/'. $img_album) }}" alt="single-product1" class="img-fluid"> </div>
-                                    @endforeach
+                                    @if(isset($disp_album))
+                                        @foreach ($disp_album as $img_album)
+                                        <div class="swiper-slide"> <img src="{{ url('assets/images/'. $img_album) }}" alt="single-product1" class="img-fluid"> </div>
+                                        @endforeach
+                                    @endif
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-7 col-md-12 col-12">
                         <div class="b_product_sell_details_wrapper mt-4 mt-lg-0 float_left">
+                            @if(isset($userData))
                             <div class="bz_product_heading float_left">
                                 <h3>{{$userData->name}}</h3>
                                 <span class="font-color-pink"><?php
@@ -361,9 +364,11 @@
                                 </div>
                             </div>
                             <!-- fifth button end -->
+                             @endif
                         </div>
                     </div>
                 </div>
+                @if(isset($userData))
                 <div class="for-next-prv-btn">
 				
                     @if ($userRef['prev']!='')
@@ -389,6 +394,13 @@
                     @endif
 				
                 </div>
+                @else
+                <center>
+                <h2>No Record Found<h2>
+                <h3>You can <a href="{{url('/')}}/dashboard/blocked-users"><b>unblock</b></a> users from dashboard</h3>
+  
+                </center>
+                @endif
             </div>
         </div>
     </div>

@@ -39,6 +39,7 @@
                                     <!-- <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#tab-10"><span><i class="fa-solid fa-check-double"></i></span> Sent Interests</a></li> -->
                                 </ul>
                             </div>
+                            
                             <h5>Requests Received</h5>
                             <div class="pannal-content">
                                 <ul class="nav nav-tabs profile-setting">
@@ -56,7 +57,14 @@
                                     <li class="nav-item"><a class="nav-link {{ $sendMobileRequestsCount > 0 ? 'note' : '' }}" href="{{url('dashboard/request-mobile-sent')}}"><span><i class="fa-solid fa-check-double"></i></span> Request Sent Mobile number<div class="note-count2">{{$sendMobileRequestsCount}}</div></a></li>
                                     <li class="nav-item"><a class="nav-link {{ $sendEmailRequestsCont > 0 ? 'note' : '' }}" href="{{url('dashboard/request-email-sent')}}"><span><i class="fa-solid fa-check-double"></i></span> Email Request Sent <div class="note-count2">{{$sendEmailRequestsCont}}</div></a></li>
                                     <li class="nav-item"><a class="nav-link {{ $sendLikescount > 0 ? 'note' : '' }}" href="{{url('dashboard/request-like-sent')}}"><span><i class="fa-solid fa-check-double"></i></span> Like Request Sent <div class="note-count2">{{$sendLikescount}}</div></a></li>
-                                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();"><span><i class="fa-solid fa-check-double"></i></span> Logout</a></li>
+                                    <!-- <li class="nav-item"><a class="nav-link" data-toggle="tab" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();"><span><i class="fa-solid fa-check-double"></i></span> Logout</a></li> -->
+                                </ul>
+                            </div>
+                            <h5>Blocked Users</h5>
+                            <div class="pannal-content">
+                                <ul class="nav nav-tabs profile-setting">
+                                    <li class="nav-item"><a class="nav-link {{ $BlockedusersCount > 0 ? 'note' : '' }}" href="{{url('dashboard/blocked-users')}}"><span><i class="fa-solid fa-check-double"></i></span> Blocked users<div class="note-count2">{{$BlockedusersCount}}</div></a></li>
+                                
                                 </ul>
                             </div>
                         </div>

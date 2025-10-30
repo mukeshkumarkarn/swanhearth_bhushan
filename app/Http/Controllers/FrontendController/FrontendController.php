@@ -37,6 +37,7 @@ class FrontendController extends Controller
 {
     public function __CONSTRUCT() {
         $this->dashboard_bookmarks = '<strong>Book</strong>marks';
+        $this->blocked_users = '<strong>Blocked</strong>users';
         $this->dashboard_friend_message = '<strong>Friend</strong> Message';
 		$this->dashboard_photo_received = '<strong> Photo Request</strong> Received';
 		$this->dashboard_request_email_recived = '<strong> Email Request</strong> Received';
@@ -234,8 +235,12 @@ class FrontendController extends Controller
 		$userLong = $authUserData->longitute;
 		
 		$totalUsers= DB::table('users')
+                        ->selectRaw(("
+                                    (select block_status from user_actions where other_person_user_id = users.id and user_id = $authUserData->id) block_status
+                                    "))
 						->where('users.status', 1)
 						->where('users.gender', $oppositeGender)
+                        ->havingRaw("block_status = 0 OR block_status = '' OR block_status IS NULL")
 						->count();
 		//echo "tu==".$totalUsers."<br>";
 		if($page <= 0 || $page > $totalUsers) {
@@ -253,14 +258,21 @@ class FrontendController extends Controller
 		
 		$userData = DB::table('users')
 						->select('users.user_ref')
-						->selectRaw(("ST_Distance_Sphere(point($userLong, $userLat), point(longitute,latitude))*0.001 as distance"))
+						->selectRaw(("ST_Distance_Sphere(point($userLong, $userLat), 
+                                      point(longitute,latitude))*0.001 as distance,
+                                      (select block_status from user_actions where other_person_user_id = users.id and user_id = $authUserData->id) block_status
+                                      "))
 						->where('users.status', 1)
 						->where('users.gender', $oppositeGender)
+                        ->havingRaw("block_status = 0 OR block_status = '' OR block_status IS NULL")
 						->orderBy('distance', 'asc')
 						->orderBy('users.updated_at', 'desc')
 						->offset($start)->limit($length)
 						->get();
-
+        if($page=="")
+        {
+           //$page = 1; 
+        }
 		$userRef=array();
 		$arrPage=array();
 		if(($page=="" || $page=="1") && ($page==$totalUsers)) {
@@ -276,17 +288,34 @@ class FrontendController extends Controller
 		}
 		else if($page=="" || $page=="1") {
             if (empty($userData[0])) {
-                return redirect('/matches');
+                //return redirect('/matches');
             }
-            elseif (empty($userData[1])) {
-                return redirect('/matches');
-            }
+            // elseif (empty($userData[1])) {
+            //     return redirect('/matches');
+            // }
 			$userRef['prev']="";
-			$userRef['curr']=$userData[0]->user_ref;
-			$userRef['next']=$userData[1]->user_ref;
+            if(isset($userData[0]->user_ref))
+            {
+			    $userRef['curr']=$userData[0]->user_ref;
+            }
+            else{
+                $userRef['curr']='';
+            }
+            if(isset($userData[1]->user_ref))
+            {
+			    $userRef['next']=$userData[1]->user_ref;
+            }
+            else{
+                $userRef['next']='';
+            }
 			$arrPage['prev']='';
 			$arrPage['next']='2';
-            $distance = $userData[0]->distance;
+            if(isset($userData[0]->user_ref)){
+                $distance = $userData[0]->distance;
+            }
+            else{
+                $distance = '';
+            }
 		}
 		else if($page==$totalUsers) {
             if (empty($userData[0])) {
@@ -323,8 +352,14 @@ class FrontendController extends Controller
 		//echo "<pre>";print_r($userRef);
 		
 		$disp_user_ref = $userRef['curr'];
-		$return_data = $this->userProfile($disp_user_ref);
-		//echo "<pre>";print_r($return_data);
+        if(!empty($disp_user_ref))
+        {
+		    $return_data = $this->userProfile($disp_user_ref);
+        }
+        else{
+            $return_data = [];
+        }
+		//echo "<pre>";print_r($return_data);die;
 		
 		$FooterUser = $this->footerUser();
 		$Footerstory = $this->footerStory();
@@ -1134,6 +1169,45 @@ class FrontendController extends Controller
 		return view('frontend.dashboard', $arrReturnValue);
     }
 
+    public function blocked_users()
+    {
+		$authUserData = Auth::user();
+
+		$oppositeGender = $authUserData->gender == 'male' ? 'female' : 'male';
+        // $userData = User::select("*")
+		// 				->selectRaw(("(select block_status from user_actions where other_person_user_id = users.id and user_id = $authUserData->id) block_status"))
+		// 				->where('users.status', 1)
+		// 				->where('users.gender', $oppositeGender)
+		// 				->orderBy('users.updated_at', 'desc')
+		// 				->paginate(20);
+        $userData = user_action::join('users', 'user_actions.other_person_user_id', '=', 'users.id')
+            ->where('user_actions.block_status', 1)
+            ->where('user_actions.user_id', Auth::user()->id)
+            ->paginate(20);
+        //echo "<pre>";print_r($userData->toArray());die;
+		//$page_heading = '<strong>Book</strong>marks';
+        $page_heading = $this->blocked_users;
+
+		$dashboardMenu = $this->__dashboardMenu();
+		//ECHO "<PRE>";print_r($dashboardMenu);
+        
+        $dynamicMeta = dynamic_metas::where('page_name', 'blocked_users')->first();
+		$otherRet=['dynamicMeta' => $dynamicMeta, 'page_heading'=>$page_heading, 'displayData' => $userData];
+		$arrReturnValue = array_merge($dashboardMenu, $otherRet);
+		
+		return view('frontend.dashboard.blocked_users', $arrReturnValue);
+    }
+
+    private function countBlockedusers() {
+
+        $BlockedusersCount = user_action::join('users', 'user_actions.other_person_user_id', '=', 'users.id')
+            ->where('user_actions.block_status', 1)
+            ->where('user_actions.user_id', Auth::user()->id)
+            ->count();
+	
+		return $BlockedusersCount;
+	}
+
 
     public function friend_message()
     {
@@ -1652,8 +1726,8 @@ class FrontendController extends Controller
 		$sendphotoRequestsCount = $this->sendphotoRequestsCount();
 		$FooterUser = $this->footerUser();
 		$FooterStory = $this->footerStory();
-
-		$arrReturn=['bookmarksCount' => $bookmarksCount, 'countMessage'=>$countMessage, 'requestMobilesCount' => $requestMobilesCount, 'countRequestPhoto'=>$countRequestPhoto, 'requestEmailsCount'=>$requestEmailsCount, 'requestLikesCount' => $requestLikesCount, 'sendMobileRequestsCount'=>$sendMobileRequestsCount, 'sendEmailRequestsCont'=>$sendEmailRequestsCont, 'sendLikescount'=>$sendLikescount, 'sendphotoRequestsCount'=>$sendphotoRequestsCount, 'FooterUser'=>$FooterUser, 'Footerstory'=>$FooterStory];
+        $BlockedusersCount = $this->countBlockedusers();
+		$arrReturn=['bookmarksCount' => $bookmarksCount, 'countMessage'=>$countMessage, 'requestMobilesCount' => $requestMobilesCount, 'countRequestPhoto'=>$countRequestPhoto, 'requestEmailsCount'=>$requestEmailsCount, 'requestLikesCount' => $requestLikesCount, 'sendMobileRequestsCount'=>$sendMobileRequestsCount, 'sendEmailRequestsCont'=>$sendEmailRequestsCont, 'sendLikescount'=>$sendLikescount, 'sendphotoRequestsCount'=>$sendphotoRequestsCount, 'FooterUser'=>$FooterUser, 'Footerstory'=>$FooterStory,'BlockedusersCount'=>$BlockedusersCount];
 		return $arrReturn;
 	}
 

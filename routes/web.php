@@ -97,6 +97,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('subscription-pay', [SubscriptionController::class, 'SubscriptionPay']);
     Route::get('search-data', [FrontendController::class, 'searchKeyword']);
     Route::get('/matchmaking/{datasearch?}/{minage?}/{maxage?}', [FrontendController::class, 'searchMatchMaking'])->name('matchmaking');
+    //Route::get('blocked-users', [FrontendController::class, 'blocked_users'])->name('blocked_users');
 });
 
 Route::get('captcha', [UserRegister::class, 'captcha']);
@@ -220,6 +221,7 @@ Route::prefix('dashboard')->group(function () {
     Route::get('request-sent-photo', [FrontendController::class, 'request_send_photo'])->name('request-sent-photo');
     Route::get('request-like-sent', [FrontendController::class, 'request_like_send'])->name('request-like-sent');
     Route::get('show-image-gallery/{user_ref}', [FrontendController::class, 'ShowGallery'])->name('show-image-gallery');
+    Route::get('blocked-users', [FrontendController::class, 'blocked_users'])->name('blocked_users');
 });
 
 Route::get('own-user-delete-account', [UserProfileController::class, 'AccountDelete']);
