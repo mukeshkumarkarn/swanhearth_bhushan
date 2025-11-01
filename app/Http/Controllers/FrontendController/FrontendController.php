@@ -44,7 +44,7 @@ class FrontendController extends Controller
 		
 		$this->dashboard_group_name_received = 'Requests Received';
         $this->dashboard_group_name_sent = 'Requests Sent';
-		
+		$this->dashboard_group_name_received_changed_status = "Request Approved and Denined";
 		
 		
 		
@@ -1298,10 +1298,12 @@ class FrontendController extends Controller
             $update_arr = array("mobile_no"=>$post_data["mobile_no"]);
             
             User::where($where)->update($update_arr);
+            return redirect("dashboard/request-mobile-received");
         }
         $user_detail = User::where($where)->first();
         $requestMobiles = user_action::join('users', 'user_actions.user_id', '=', 'users.id')
             ->where('user_actions.request_mobile', 'request-mobile')
+            ->where('user_actions.request_mobile_status', 1)
             ->where('user_actions.other_person_user_id', Auth::user()->id)
             ->select(
                 'user_actions.id',
@@ -1322,19 +1324,114 @@ class FrontendController extends Controller
         $dynamicMeta = dynamic_metas::where('page_name', 'request-mobile-recived')->first();
 		
 		$dashboardMenu = $this->__dashboardMenu();
+
+        $request_mobile_change_status_row = user_action::select(DB::raw('count(*) as request_mobile_change_status_count'))
+                                            ->where("other_person_user_id", Auth::user()->id)
+                                            ->where("request_mobile", "request-mobile")
+                                            ->where(function ($query) {
+                                                $query->where('request_mobile_status', 2)
+                                                    ->orWhere('request_mobile_status', 3);
+                                            })
+                                            ->first();
+		//dd($request_mobile_change_status_row->toArray());
+        $request_mobile_change_status_count = $request_mobile_change_status_row["request_mobile_change_status_count"];
 		
-		$otherRet=['dynamicMeta' => $dynamicMeta, 'page_heading'=>$page_heading, 'group_name'=>$group_name, 'displayData' => $requestMobiles,'user_detail'=>$user_detail];
-		$arrReturnValue = array_merge($dashboardMenu, $otherRet);
+        $otherRet=['dynamicMeta' => $dynamicMeta, 'page_heading'=>$page_heading, 'group_name'=>$group_name, 'displayData' => $requestMobiles,'user_detail'=>$user_detail];
+		
+        $otherRet["request_mobile_change_status_count"] = $request_mobile_change_status_count;
+        $arrReturnValue = array_merge($dashboardMenu, $otherRet);
 		
 		return view('frontend.dashboard.request-mobile', $arrReturnValue);
     }
 
-    public function request_email_recived()
+    public function request_mobile_received_changed_status(Request $request)
+    {
+        
+        $requestMobiles = user_action::join('users', 'user_actions.user_id', '=', 'users.id')
+            ->where('user_actions.request_mobile', 'request-mobile')
+            ->where(function($query) {
+                $query->where('user_actions.request_mobile_status', 2)
+                    ->orWhere('user_actions.request_mobile_status', 3);
+            })
+            ->where('user_actions.other_person_user_id', Auth::user()->id)
+            ->select(
+                'user_actions.id',
+                'users.profile_img',
+                'users.name',
+                'users.state',
+                'users.city',
+                'users.user_ref',
+                'users.mobile_no',
+                'user_actions.request_mobile_status'
+            )
+            ->paginate(20);
+        //echo "<pre>";print_r($requestMobiles->toarray());die;
+		$page_heading='<strong>Request Mobile Approved and Denied</strong>';
+		$group_name = $this->dashboard_group_name_received_changed_status;
+		
+		
+        $dynamicMeta = dynamic_metas::where('page_name', 'request-mobile-received-changed-status')->first();
+		
+		$dashboardMenu = $this->__dashboardMenu();
+		
+		$otherRet=['dynamicMeta' => $dynamicMeta, 'page_heading'=>$page_heading, 'group_name'=>$group_name, 'displayData' => $requestMobiles];
+		$arrReturnValue = array_merge($dashboardMenu, $otherRet);
+		
+		return view('frontend.dashboard.request-mobile-received-changed-status', $arrReturnValue);
+    }
+
+    public function request_email_received_changed_status(Request $request)
+    {
+        
+        $requestMobiles = user_action::join('users', 'user_actions.user_id', '=', 'users.id')
+            ->where('user_actions.request_email', 'request-email')
+            ->where(function($query) {
+                $query->where('user_actions.request_email_status', 2)
+                    ->orWhere('user_actions.request_email_status', 3);
+            })
+            ->where('user_actions.other_person_user_id', Auth::user()->id)
+            ->select(
+                'user_actions.id',
+                'users.profile_img',
+                'users.name',
+                'users.state',
+                'users.city',
+                'users.user_ref',
+                'users.email',
+                'user_actions.request_email_status'
+            )
+            ->paginate(20);
+        //echo "<pre>";print_r($requestMobiles->toarray());die;
+		$page_heading='<strong>Request Email Approved and Denied</strong>';
+		$group_name = $this->dashboard_group_name_received_changed_status;
+		
+		
+        $dynamicMeta = dynamic_metas::where('page_name', 'request-email-received-changed-status')->first();
+		
+		$dashboardMenu = $this->__dashboardMenu();
+		
+		$otherRet=['dynamicMeta' => $dynamicMeta, 'page_heading'=>$page_heading, 'group_name'=>$group_name, 'displayData' => $requestMobiles];
+		$arrReturnValue = array_merge($dashboardMenu, $otherRet);
+		
+		return view('frontend.dashboard.request-email-received-changed-status', $arrReturnValue);
+    }
+
+    public function request_email_recived(Request $request)
     {
 		$bookmarksCount = $this->countBookmark();
-		
+		$user_id = Auth::user()->id;
+        $where = array("id"=>$user_id);
+        if(isset($_POST["update_email"])){
+            $post_data = $request->all();
+            $update_arr = array("email"=>$post_data["email"]);
+            
+            User::where($where)->update($update_arr);
+            return redirect("dashboard/request-email-received");
+        }
+        $user_detail = User::where($where)->first();
         $requestEmails = user_action::join('users', 'user_actions.user_id', '=', 'users.id')
             ->where('user_actions.request_email', 'request-email')
+            ->where('user_actions.request_email_status', 1)
             ->where('user_actions.other_person_user_id', Auth::user()->id)
             ->select(
                 'user_actions.id',
@@ -1349,12 +1446,23 @@ class FrontendController extends Controller
             ->paginate(20);
 
 		$dashboardMenu = $this->__dashboardMenu();
+        $request_email_change_status_row = user_action::select(DB::raw('count(*) as request_email_change_status_count'))
+                                            ->where("other_person_user_id", Auth::user()->id)
+                                            ->where("request_email", "request-email")
+                                            ->where(function ($query) {
+                                                $query->where('request_email_status', 2)
+                                                    ->orWhere('request_email_status', 3);
+                                            })
+                                            ->first();
+		//dd($request_mobile_change_status_row->toArray());
+        $request_email_change_status_count = $request_email_change_status_row["request_email_change_status_count"];
 		$page_heading = $this->dashboard_request_email_recived;
 		
         $dynamicMeta = dynamic_metas::where('page_name', 'request-email-recived')->first();
 		
-		$otherRet=['dynamicMeta' => $dynamicMeta, 'page_heading'=>$page_heading, 'displayData' => $requestEmails];
-		$arrReturnValue = array_merge($dashboardMenu, $otherRet);
+		$otherRet=['dynamicMeta' => $dynamicMeta, 'page_heading'=>$page_heading, 'displayData' => $requestEmails,'user_detail'=>$user_detail];
+		$otherRet["request_email_change_status_count"] = $request_email_change_status_count;
+        $arrReturnValue = array_merge($dashboardMenu, $otherRet);
 		
 		return view('frontend.dashboard.request-email', $arrReturnValue);
     }

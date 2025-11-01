@@ -726,6 +726,42 @@ $(document).ready(function () {
             }
         });
     });
+
+    $(document).on('click', '.request_mobile_status', function () {
+        var mobile_no = $("#mobile_no").val();
+        var request_mobile_status = $(this).data('request_mobile_status');
+        if(request_mobile_status == 3){
+            mobile_no = "1234567890";
+        }
+        if(mobile_no!=""){
+            var thisButton = $(this);
+            var action_id = $(this).data('action_id');
+            
+            var url = '/api/request-mobile-status/' + action_id + '/' + request_mobile_status;
+            var csrf = $("[name=_token]").val();
+            var base_url = window.location.origin;
+            url = base_url + url;
+            $.ajax({
+                type: 'get',
+                url: url,
+                success: function (data) {
+                    if(request_mobile_status == 2){
+                        alert("Request Approved");
+                    }else if(request_mobile_status == 3){
+                        alert("Request Rejected");
+                    }
+                    window.location.href = base_url+"/dashboard/request-mobile-received";
+                }
+            });
+        }
+        else{
+            $("#edit_div").show();
+            $('html, body').animate({
+                scrollTop: $("#edit_div").offset().top
+            }, 500);
+            $("#mobile_no").focus()
+        }
+    });
 });
 // end request mobile no
 
@@ -755,7 +791,15 @@ $(document).ready(function () {
     });
 });
 // end request mobile no
-
+$(document).ready(function () {
+    $(document).on('click', '.open_edit_div', function () {
+        $("#edit_div").show();
+        $('html, body').animate({
+            scrollTop: $("#edit_div").offset().top
+        }, 500);
+        $("#mobile_no").focus()
+    });
+});
 // request email
 $(document).ready(function () {
     $(document).on('click', '.request-email', function () {
@@ -779,6 +823,42 @@ $(document).ready(function () {
                 }, 3000);
             }
         });
+    });
+
+    $(document).on('click', '.request_email_status', function () {
+        var email = $("#email").val();
+        var request_email_status = $(this).data('request_email_status');
+        if(request_email_status == 3){
+            email = "1234567890";
+        }
+        if(email!=""){
+            var thisButton = $(this);
+            var action_id = $(this).data('action_id');
+            
+            var url = '/api/request-email-status/' + action_id + '/' + request_email_status;
+            var csrf = $("[name=_token]").val();
+            var base_url = window.location.origin;
+            url = base_url + url;
+            $.ajax({
+                type: 'get',
+                url: url,
+                success: function (data) {
+                    if(request_email_status == 2){
+                        alert("Request Approved");
+                    }else if(request_email_status == 3){
+                        alert("Request Rejected");
+                    }
+                    window.location.href = base_url+"/dashboard/request-email-received";
+                }
+            });
+        }
+        else{
+            $("#edit_div").show();
+            $('html, body').animate({
+                scrollTop: $("#edit_div").offset().top
+            }, 500);
+            $("#email").focus()
+        }
     });
 });
 // end request email

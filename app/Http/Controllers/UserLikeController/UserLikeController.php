@@ -189,6 +189,48 @@ class UserLikeController extends Controller
         return ["message" => "Request to Mobile No Request Cancle"];
     }
 
+    public function request_mobile_status(Request $request, $action_id, $request_mobile_status)
+    {
+
+        $user_like = user_action::where('id', $action_id)->first();
+
+        if (!$user_like) {
+            return ["message" => "Request not found"];
+        }
+
+        $user_like->update([
+            'request_mobile_status' => $request_mobile_status
+        ]);
+        if($request_mobile_status == 2){
+            $mobile_status = "Approved";
+        }
+        else if($request_mobile_status == 3){
+            $mobile_status = "Rejected";
+        }
+        return ["message" => "Request $mobile_status"];
+    }
+
+    public function request_email_status(Request $request, $action_id, $request_email_status)
+    {
+
+        $user_like = user_action::where('id', $action_id)->first();
+
+        if (!$user_like) {
+            return ["message" => "Request not found"];
+        }
+
+        $user_like->update([
+            'request_email_status' => $request_email_status
+        ]);
+        if($request_email_status == 2){
+            $changed_status = "Approved";
+        }
+        else if($request_email_status == 3){
+            $changed_status = "Rejected";
+        }
+        return ["message" => "Request $changed_status"];
+    }
+
 
     public function user_email_request(Request $request, $user_other_person_id, $user_id)
     {

@@ -2,8 +2,8 @@
 <div class="main-innerpage w-100 float-start">
     <div class="container">
         <div class="innerpages">
-            <h2>Request Mobile Number</h2>
-            <span><a href="{{url('/')}}"> Home </a> &gt; <span class="font-color-pink">Request Mobile Number</span></span>
+            <h2>Request Email Approved and Denied</h2>
+            <span><a href="{{url('/')}}"> Home </a> &gt; <span class="font-color-pink">Request Email Approved and Denied</span></span>
         </div>
     </div>
 </div>
@@ -30,19 +30,3 @@
 <div class="clearfix"></div>
 @include('frontend.bin.footer')
 
-<script>
-    $(document).ready(function() {
-        var id = $('.user_id').val();
-        var url = '/api/mobile-request-notification-remove/' + id;
-        var csrf = $("[name=_token]").val();
-        var base_url = window.location.origin;
-        url = base_url + url;
-        $.ajax({
-            type: 'get',
-            url: url,
-            success: function(data) {
-                $('.MObileCountNot').css('background-color', 'white').show();
-            }
-        });
-    });
-</script>

@@ -214,6 +214,7 @@ Route::prefix('dashboard')->group(function () {
     Route::get('request-mobile-received', [FrontendController::class, 'request_mobile_recived'])->name('request-mobile-received');
     Route::post('request-mobile-received', [FrontendController::class, 'request_mobile_recived']);
     Route::get('request-email-received', [FrontendController::class, 'request_email_recived'])->name('request-email-received');
+    Route::post('request-email-received', [FrontendController::class, 'request_email_recived']);
     Route::get('request-photo-received', [FrontendController::class, 'request_photo_recived'])->name('request-photo-received');
     Route::get('request-like-received', [FrontendController::class, 'request_like_recived'])->name('request-like-received');
     Route::get('request-mobile-sent', [FrontendController::class, 'request_mobile_send'])->name('request-mobile-sent');
@@ -222,6 +223,8 @@ Route::prefix('dashboard')->group(function () {
     Route::get('request-like-sent', [FrontendController::class, 'request_like_send'])->name('request-like-sent');
     Route::get('show-image-gallery/{user_ref}', [FrontendController::class, 'ShowGallery'])->name('show-image-gallery');
     Route::get('blocked-users', [FrontendController::class, 'blocked_users'])->name('blocked_users');
+    Route::get('request-mobile-received-changed-status', [FrontendController::class, 'request_mobile_received_changed_status']);
+    Route::get('request-email-received-changed-status', [FrontendController::class, 'request_email_received_changed_status']);
 });
 
 Route::get('own-user-delete-account', [UserProfileController::class, 'AccountDelete']);

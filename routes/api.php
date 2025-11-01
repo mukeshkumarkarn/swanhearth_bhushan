@@ -51,6 +51,10 @@ Route::get('block/{user_other_person_id}/{user_id}', [UserLikeController::class,
 
 Route::get('unblock/{user_other_person_id}/{user_id}', [UserLikeController::class, 'Unblock']);
 
+Route::get('request-mobile-status/{action_id}/{request_mobile_status}', [UserLikeController::class, 'request_mobile_status']);
+
+Route::get('request-email-status/{action_id}/{request_email_status}', [UserLikeController::class, 'request_email_status']);
+
 // Route::get('proposal-fillter/{id}', [FrontendController::class, 'GetUserData']);
 
 

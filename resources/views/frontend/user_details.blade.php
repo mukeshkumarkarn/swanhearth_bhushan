@@ -100,10 +100,12 @@
                                                             @endif
                                                             <!-- end tr -->
                                                             @if($userData->mobile_no)
-                                                            <tr>
-                                                                <th scope="row">Mobile Number</th>
-                                                                <td>{{$userData->mobile_no}}</td>
-                                                            </tr>
+                                                                @if($userData->mobile_show_hide == 1 || $userData->request_mobile_status==2)
+                                                                <tr>
+                                                                    <th scope="row">Mobile Number</th>
+                                                                    <td>{{$userData->mobile_no}}</td>
+                                                                </tr>
+                                                                @endif
                                                             @endif
                                                             <!-- end tr -->
                                                             @if($userData->pincode)

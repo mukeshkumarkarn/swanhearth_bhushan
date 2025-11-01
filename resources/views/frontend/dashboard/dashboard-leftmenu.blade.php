@@ -34,7 +34,7 @@
 								
                                     <li class="nav-item"><a class="nav-link  {{ $countMessage > 0 ? 'note' : '' }}" href="{{url('dashboard/friend-message')}}"><span><i class="fa-solid fa-check-double"></i></span>Friend Message <div class="note-count2">{{$countMessage}}</div></a></li>
 
-
+                                    <li class="nav-item"><a class="nav-link" href="#"><span><i class="fa-solid fa-check-double"></i></span>Like Received</a></li><!--Added at 1 nov 2025-->
                                     <!-- <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#tab-9"><span><i class="fa-solid fa-check-double"></i></span> Accepted Members</a></li> -->
                                     <!-- <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#tab-10"><span><i class="fa-solid fa-check-double"></i></span> Sent Interests</a></li> -->
                                 </ul>
@@ -46,7 +46,7 @@
                                     <li class="nav-item"><a class="nav-link " href="{{url('dashboard/request-photo-received')}}"><span><i class="fa-solid fa-check-double"></i></span> Photo Request Received</a></li>
                                     <li class="nav-item"><a class="nav-link {{ $requestMobilesCount > 0 ? 'note' : '' }}" href="{{url('dashboard/request-mobile-received')}}"><span><i class="fa-solid fa-check-double"></i></span> Request Mobile number<div class="note-count2">{{$requestMobilesCount}}</div></a></li>
                                     <li class="nav-item"><a class="nav-link {{ $requestEmailsCount > 0 ? 'note' : '' }}" href="{{url('dashboard/request-email-received')}}"><span><i class="fa-solid fa-check-double"></i></span> Email Request Received<div class="note-count2">{{$requestEmailsCount}}</div></a></li>
-                                    <li class="nav-item"><a class="nav-link {{ $requestLikesCount > 0 ? 'note' : '' }}" href="{{url('dashboard/request-like-received')}}"><span><i class="fa-solid fa-check-double"></i></span> Like Request Received<div class="note-count2">{{$requestLikesCount}}</div></a></li>
+                                    <!-- <li class="nav-item"><a class="nav-link {{ $requestLikesCount > 0 ? 'note' : '' }}" href="{{url('dashboard/request-like-received')}}"><span><i class="fa-solid fa-check-double"></i></span> Like Request Received<div class="note-count2">{{$requestLikesCount}}</div></a></li> commented at 1 nov 2025 -->
                                 </ul>
                             </div>
                             <h5>Requests Sent</h5>
